@@ -3,7 +3,7 @@ const app = express();
 
 
 app.get('/', function(req, res){
-        res.send("This is a app1 new version :1.0.1");
+        res.send("This is a app1 version :1.0.1 with automation deploy");
 });
 
 app.listen(8080,function(){
