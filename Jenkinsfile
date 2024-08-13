@@ -11,7 +11,10 @@ pipeline {
 
         stage('Build') {
             steps {
-                echo 'Building the project...'
+                //echo 'Building the project...'
+                script {
+                  bat 'echo "Building the project on Windows..."'
+                }
             }
         }
 
