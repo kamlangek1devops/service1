@@ -11,9 +11,9 @@ pipeline {
 
         stage('Build') {
             steps {
-                //echo 'Building the project...'
+                //bat 'echo "Building the project on Windows..."'
                 script {
-                  bat 'echo "Building the project on Windows..."'
+                    bat 'docker build -t testapp1:1.0.1 .'
                 }
             }
         }
