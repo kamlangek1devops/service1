@@ -11,22 +11,19 @@ pipeline {
 
         stage('Build') {
             steps {
-                // Example build step
-                sh 'echo "Building the project..."'
+                echo 'Building the project...'
             }
         }
 
         stage('Test') {
             steps {
-                // Example test step
-                sh 'echo "Running tests..."'
+                echo 'Running tests...'
             }
         }
 
         stage('Deploy') {
             steps {
-                // Example deploy step
-                sh 'echo "Deploying the application..."'
+                echo ' "Deploying the application..."'
             }
         }
     }
