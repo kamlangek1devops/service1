@@ -28,10 +28,11 @@ pipeline {
             steps {
                 //docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
                 //echo $DOCKER_PASSWORD | docker login -u $DOCKER_USERNAME --password-stdin
+                //echo %DOCKER_CREDENTIALS_PSW% | docker login -u %DOCKER_CREDENTIALS_USR% --password-stdin
                             bat '''
                                 echo "Logging into Docker registry..."
                                 echo %DOCKER_CREDENTIALS_USR%
-                                echo %DOCKER_CREDENTIALS_PSW% | docker login -u %DOCKER_CREDENTIALS_USR% --password-stdin
+                                docker login -u %DOCKER_CREDENTIALS_USR% -p %DOCKER_CREDENTIALS_PSW%
                                 
                                 echo "Pushing Docker image to registry..."
                                 docker push kamlangek2devops/app1:1.0.2
