@@ -9,12 +9,28 @@ pipeline {
             }
         }
 
-        stage('Build') {
+        stage('Build Docker') {
             steps {
-                //bat 'echo "Building the project on Windows..."'
                 script {
-                    bat 'echo "Building the project on Windows..."'
-                    bat 'docker build -t testapp1:1.0.1 .'
+                    bat '''
+                        echo "Building the project on Windows..."
+                        docker build -t kamlangek2devops/app1:1.0.2 .
+                        '''
+                }
+            }
+        }
+
+        stage('Push Docker to Registry') {
+            steps {
+                withCredentials([usernamePassword(credentialsId: 'Docker_Hub_Credential', 
+                usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]) {
+                    bat '''
+                        echo "Logging into Docker registry..."
+                        docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
+                        
+                        echo "Pushing Docker image to registry..."
+                        docker push kamlangek2devops/app1:1.0.2
+                    '''
                 }
             }
         }
@@ -34,7 +50,6 @@ pipeline {
 
     post {
         always {
-            // Actions that run after the pipeline completes
             echo 'Cleaning up...'
         }
         success {
