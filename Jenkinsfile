@@ -1,5 +1,9 @@
 pipeline {
     agent any
+    
+    environment {
+        DOCKER_CREDENTIALS = credentials('Docker_Hub_Credential')
+    }
 
     stages {
         stage('Checkout') {
@@ -24,16 +28,14 @@ pipeline {
             steps {
                 //docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
                 //echo $DOCKER_PASSWORD | docker login -u $DOCKER_USERNAME --password-stdin
-                withCredentials([usernamePassword(credentialsId: 'Docker_Hub_Credential', 
-                usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]) {
-                    bat '''
-                        echo "Logging into Docker registry..."
-                        echo "docker$DEVOPS@2" | docker login -u "kamlangek2devops" --password-stdin
-                        
-                        echo "Pushing Docker image to registry..."
-                        docker push kamlangek2devops/app1:1.0.2
-                    '''
-                }
+                            bat '''
+                                echo "Logging into Docker registry..."
+                                echo %DOCKER_CREDENTIALS_USR%
+                                echo %DOCKER_CREDENTIALS_PSW% | docker login -u %DOCKER_CREDENTIALS_USR% --password-stdin
+                                
+                                echo "Pushing Docker image to registry..."
+                                docker push kamlangek2devops/app1:1.0.2
+                            '''
             }
         }
 
